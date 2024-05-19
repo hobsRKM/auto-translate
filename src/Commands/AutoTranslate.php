@@ -35,6 +35,8 @@ class AutoTranslate extends Command
             try {
                 Artisan::call('translatable:export ' . $locale);
                 $filePath = lang_path($locale . '.json');
+                $defaultLocaleFile =  File::get(lang_path(config('app.fallback_locale') . '.json'));
+                $defaultLocaleFileContent = json_decode($defaultLocaleFile, true);
                 if (File::exists($filePath)) {
                     $this->info('Translating ' . $locale . ', please wait...');
                     $results = [];
@@ -43,7 +45,7 @@ class AutoTranslate extends Command
                     $translator = new GoogleTranslate($locale);
                     $translator->setSource(config('app.fallback_locale'));
                     foreach ($localeFileContent as $key) {
-                        $results[$key] = $translator->translate($key);
+                        $results[$key] = $translator->translate($defaultLocaleFileContent[$key]);
                     }
                     File::put($filePath, json_encode($results, JSON_UNESCAPED_UNICODE));
                 }
