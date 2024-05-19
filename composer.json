@@ -1,6 +1,6 @@
 {
-    "name": "devaslanphp/auto-translate",
-    "description": "Auto generate translation JSON files",
+    "name": "hobsrkm/auto-translate",
+    "description": "Auto generate translation JSON files for laravel 10, laravel > 11",
     "type": "library",
     "license": "MIT",
     "autoload": {
